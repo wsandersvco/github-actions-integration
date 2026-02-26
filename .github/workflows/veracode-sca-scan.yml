@@ -141,15 +141,35 @@ jobs:
             }
             Remove-Item -Recurse -Force "veracode-helper" -ErrorAction SilentlyContinue
 
+      - name: Check out to get veracode CLI
+        uses: actions/checkout@v4
+        with:
+          path: 'veracode-helper'
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            helper/cli/*
+
       - name: Run Veracode SCA
         env:
           SRCCLR_API_TOKEN: ${{ secrets.VERACODE_AGENT_TOKEN }}
           JAVA_OPTS: -Xms2g -Xmx4g
-        uses: veracode/veracode-sca@v2.1.15
+          VERACODE_API_KEY_ID: '${{ secrets.VERACODE_API_ID }}'
+          VERACODE_API_KEY_SECRET: '${{ secrets.VERACODE_API_KEY }}'
+        uses: "veracode/veracode-sca@SAI-1181-latest" # TODO: update this when tag is cut
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           create-issues: false
+          json-output: true # This value will eventually be dynamic based on sca-fix is enabled / disabled
           recursive: true
           allow-dirty: true
           breakBuildOnPolicyFindings: ${{ github.event.client_payload.user_config.break_build_policy_findings }}
           debug: ${{ github.event.client_payload.user_config.debug }}
+          sca_fix_enabled: ${{ github.event.client_payload.user_config.sca_fix_enabled }}
+          profile_name: ${{ github.event.client_payload.user_config.profile_name }}
+          pr_number: ${{ github.event.client_payload.pr_number }}
+          client_repository_branch: ${{ github.event.client_payload.repository.branch }}
+          client_repository_name: ${{ github.event.client_payload.repository.name }}
+          client_repository_owner: ${{ github.event.client_payload.repository.owner }}
+          client_repository_full_name: ${{ github.event.client_payload.repository.full_name }}
+
