@@ -30,6 +30,23 @@ jobs:
       branch: ${{ github.event.client_payload.repository.branch }}
       default_runs_on: ${{ github.event.client_payload.user_config.default_runs_on }}
 
+  determine-matrix:
+      needs: [register]
+      runs-on: ubuntu-latest
+      outputs:
+        matrix-json: ${{ steps.set-matrix.outputs.matrix-json }}
+      steps:
+        - name: Determine matrix based on sca-fix enabled flag
+          id: set-matrix
+          run: |
+            if [ "${{ github.event.client_payload.sca_fix_enabled }}" = "true" ] || [ "${{ github.event.client_payload.sca_fix_enabled }}" = true ]; then
+              echo "matrix-json={\"output-type\":[\"txt\",\"json\"]}" >> $GITHUB_OUTPUT
+              echo "✓ SCA-Fix ENABLED: Running [txt, json] scans"
+            else
+              echo "matrix-json={\"output-type\":[\"txt\"]}" >> $GITHUB_OUTPUT
+              echo "✗ SCA-Fix DISABLED: Running [txt] scan only"
+            fi
+
   veracode-sca-scan:
     needs: [register]
     runs-on: ${{ fromJSON(github.event.client_payload.user_config.default_runs_on) }}
@@ -149,8 +166,9 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           create-issues: false
-          json-output: true # This value will eventually be dynamic based on sca-fix is enabled / disabled
+          json-output: ${{ matrix.output-type == 'json' }}
           recursive: true
           allow-dirty: true
           breakBuildOnPolicyFindings: ${{ github.event.client_payload.user_config.break_build_policy_findings }}
           debug: ${{ github.event.client_payload.user_config.debug }}
+          sca_fix_enabled: ${{ github.event.client_payload.sca_fix_enabled }}
