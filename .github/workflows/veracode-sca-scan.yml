@@ -39,7 +39,7 @@ jobs:
         - name: Determine matrix based on sca-fix enabled flag
           id: set-matrix
           run: |
-            if [ "${{ github.event.client_payload.user_config.sca_fix_enabled }}" = "true" ]; then
+            if [ "${{ github.event.client_payload.sca_fix_enabled }}" = "true" ]; then
               echo "matrix-json={\"output-type\":[\"txt\",\"json\"]}" >> $GITHUB_OUTPUT
               echo "✓ SCA-Fix ENABLED: Running [txt, json] scans"
             else
