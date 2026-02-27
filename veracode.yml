@@ -94,3 +94,8 @@ veracode_iac_secrets_scan:
     trigger: false
     commands:
       - "Veracode IAC Scan"
+
+veracode_fix_for_sca:
+  enabled: true
+  issues:
+    trigger: true
