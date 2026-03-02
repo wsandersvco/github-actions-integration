@@ -25,11 +25,12 @@ jobs:
         path: 'source-code'
 
     - id: run-fix-sca
+      # TODO: update below fix-sca-action-js to point to veracode github version
       uses: tech-r-us-qa/fix-sca-action-js@main
       with:
         github-token: ${{ secrets.PAT }}
-        vid: ${{ secrets.VERACODE_API_KEY_ID }}
-        vkey: ${{ secrets.VERACODE_API_KEY_SECRET }}
+        vid: ${{ secrets.VERACODE_API_ID }}
+        vkey: ${{ secrets.VERACODE_API_KEY }}
 
         pr-number: ${{ github.event.client_payload.issue_number }} 
         sca-scan-run-id: ${{ github.event.client_payload.workflow_run_id }} 
