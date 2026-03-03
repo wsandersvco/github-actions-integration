@@ -10,12 +10,12 @@ on:
         description: 'ID of workflow run (provided via GitHub syntax `github.run_id`)'
         required: true
         type: string
-      repositroy_owner: 
-        description: 'repositroy_owner of original commit (provided by GitHub app via `github.event.client_payload.repository.owner`)'
+      repository_owner: 
+        description: 'repository_owner of original commit (provided by GitHub app via `github.event.client_payload.repository.owner`)'
         required: true
         type: string
-      repositroy_name: 
-        description: 'repositroy_name of original commit (provided by GitHub app via `github.event.client_payload.repository.name`)'
+      repository_name: 
+        description: 'repository_name of original commit (provided by GitHub app via `github.event.client_payload.repository.name`)'
         required: true
         type: string
       pull_request_num: 
@@ -60,8 +60,8 @@ jobs:
           route: POST /repos/{owner}/{repo}/check-runs
         env:
           GITHUB_TOKEN: ${{ inputs.github_token }}
-          INPUT_OWNER: ${{ inputs.repositroy_owner }}
-          INPUT_REPO: ${{ inputs.repositroy_name }}
+          INPUT_OWNER: ${{ inputs.repository_owner }}
+          INPUT_REPO: ${{ inputs.repository_name }}
           INPUT_NAME: ${{ inputs.check_run_name }}
           INPUT_HEAD_SHA: ${{ inputs.head_sha }}
           INPUT_DETAILS_URL: "https://github.com/${{ github.repository }}/actions/runs/${{ inputs.run_id }}"
@@ -71,7 +71,7 @@ jobs:
         run: |
           echo '{
             "check_run_type": "${{ inputs.event_type }}",
-            "repository_name": "${{ inputs.repositroy_name }}",
+            "repository_name": "${{ inputs.repository_name }}",
             "repository_owner": "${{ inputs.repository_owner }}",
             "pull_request": {
               "num": "${{ inputs.pull_request_num }}"
