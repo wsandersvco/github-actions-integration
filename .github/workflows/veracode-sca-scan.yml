@@ -24,6 +24,7 @@ jobs:
       head_sha: ${{ github.event.client_payload.sha }}
       repositroy_owner: ${{ github.event.client_payload.repository.owner }}
       repositroy_name: ${{ github.event.client_payload.repository.name }}
+      pull_request_num: ${{ github.event.client_payload.pr_number }}
       event_type: ${{ github.event.client_payload.event_type }}
       github_token: ${{ github.event.client_payload.token }}
       run_id: ${{ github.run_id }}
@@ -187,8 +188,4 @@ jobs:
           sca_fix_enabled: ${{ github.event.client_payload.user_config.sca_fix_enabled }}
           profile_name: ${{ github.event.client_payload.user_config.profile_name }}
           pr_number: ${{ github.event.client_payload.pr_number }}
-          client_repository_branch: ${{ github.event.client_payload.repository.branch }}
-          client_repository_name: ${{ github.event.client_payload.repository.name }}
-          client_repository_owner: ${{ github.event.client_payload.repository.owner }}
-          client_repository_full_name: ${{ github.event.client_payload.repository.full_name }}
 

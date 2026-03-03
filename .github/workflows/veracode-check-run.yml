@@ -18,6 +18,10 @@ on:
         description: 'repositroy_name of original commit (provided by GitHub app via `github.event.client_payload.repository.name`)'
         required: true
         type: string
+      pull_request_num: 
+        description: 'The associated pull request number (provided by GitHub app via `github.event.client_payload.pr_number`)'
+        required: false
+        type: string
       check_run_name: 
         description: 'Name of check (Use `github.workflow` to use the name of the workflow)'
         required: true
@@ -68,6 +72,10 @@ jobs:
           echo '{
             "check_run_type": "${{ inputs.event_type }}",
             "repository_name": "${{ inputs.repositroy_name }}",
+            "repository_owner": "${{ inputs.repository_owner }}",
+            "pull_request": {
+              "num": "${{ inputs.pull_request_num }}"
+            },
             "check_run_id": ${{ fromJson(steps.create_check_run.outputs.data).id }},
             "branch": "${{ inputs.branch }}",
             "sha": "${{ inputs.head_sha }}"
