@@ -176,7 +176,7 @@ jobs:
           JAVA_OPTS: -Xms2g -Xmx4g
           VERACODE_API_KEY_ID: '${{ secrets.VERACODE_API_ID }}'
           VERACODE_API_KEY_SECRET: '${{ secrets.VERACODE_API_KEY }}'
-        uses: "veracode/veracode-sca@SAI-1181-cleanup" # TODO: update this when tag is cut
+        uses: "veracode/veracode-sca@SAI-fix-for-sca" # TODO: update this when tag is cut
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           create-issues: false
