@@ -32,10 +32,10 @@ jobs:
         java-version: 1.8
 
     - name: Setup Android SDK
-      uses: android-actions/setup-android@v2
+      uses: android-actions/setup-android@9fc6c4e9069bf8d3d10b2204b1fb8f6ef7065407 # v2
 
     - name: Setup Flutter SDK
-      uses: flutter-actions/setup-flutter@v2
+      uses: flutter-actions/setup-flutter@6d11b83d56c388d0b6fe865194248a01a48548b5 # v2
       with:
         channel: stable
         version: 3.0.2
