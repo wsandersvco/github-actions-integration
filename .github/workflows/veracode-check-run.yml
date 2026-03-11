@@ -50,7 +50,7 @@ jobs:
     steps: 
       # Create check run
       - name: GitHub API Request to create a check
-        uses: octokit/request-action@v2.x
+        uses: octokit/request-action@dad4362715b7fb2ddedf9772c8670824af564f0d # v2.x
         id: create_check_run
         with:
           route: POST /repos/{owner}/{repo}/check-runs
