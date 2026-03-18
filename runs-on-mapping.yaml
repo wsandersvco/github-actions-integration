@@ -1,0 +1,5 @@
+ubuntu-latest:
+  - verademo-java
+windows-latest:
+  - verademo-dotnet
+  - verademo-netframework
