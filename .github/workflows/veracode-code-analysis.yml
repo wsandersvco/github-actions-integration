@@ -90,11 +90,11 @@ jobs:
   runs_on_validations:
     needs: validations
     runs-on: ${{ fromJson(github.event.client_payload.user_config.default_runs_on) }}
-    name: Build Validations
+    name: Runner Validations
     outputs:
       override_runs_on: ${{ steps.select-runs-on-action.outputs.runs-on }}
     steps:
-      - name: Verify Build Mappings
+      - name: Verify Runner Mappings
         id: select-runs-on-action
         uses: wsandersvc/select-runs-on-action@feature/mapping-from-central-repository
         with:
