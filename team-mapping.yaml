@@ -46,7 +46,7 @@ mappings:
         relationship: ADMIN
 
     # Optional: Automatically sync GitHub collaborators
-    sync_github_collaborators: true
+    sync_github_collaborators: false
 
     # Optional: Filter which GitHub collaborators to include
     # Options: 'admin', 'write', 'read'
