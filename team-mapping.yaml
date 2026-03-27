@@ -15,9 +15,9 @@ defaults:
 mappings:
   # Example: Specific repository configuration
   verademo-java:
-    team_name: 'VeraDemo Java Security Team'
+    team_name: 'VeraDemo Java Security Team 2'
     description: 'Security team for the VeraDemo Java application'
-    business_unit: 'Demo Applications'
+    # business_unit: 'Demo Applications'
     member_only: false
 
     # Team members with their roles
